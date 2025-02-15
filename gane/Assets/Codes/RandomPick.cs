@@ -12,6 +12,8 @@ public class RandomPick : MonoBehaviour
    public int pickedNumber;
     private Dictionary<Transform, GameObject> spawnedObjects = new Dictionary<Transform, GameObject>();
 
+    
+    public GameObject cubes;
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +31,10 @@ public class RandomPick : MonoBehaviour
         {
             makeFoodOrder();
         }
+
+
     }
-    GameObject cube;
-    public GameObject cubes;
+    
     void makeFoodOrder()
     {
         Transform picker = nodes[Random.Range(0, nodes.Length)];
@@ -39,7 +42,7 @@ public class RandomPick : MonoBehaviour
 
         if (!spawnedObjects.ContainsKey(picker))
         {
-            GameObject newObject = Instantiate(cube, picker.position, Quaternion.identity);
+            GameObject newObject = Instantiate(cubes, picker.position,Quaternion.identity);
             spawnedObjects[picker] = newObject;
         }
         else
