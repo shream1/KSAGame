@@ -1,19 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RandomPick : MonoBehaviour
 {
 
     public Transform[] nodes;
-
     List<string> list = new List<string> {"Kabsa" ,"Drink","Saled"} ;
-
-   public int pickedNumber;
+    public int pickedNumber;
     private Dictionary<Transform, GameObject> spawnedObjects = new Dictionary<Transform, GameObject>();
+    public GameObject cubes;
 
     
-    public GameObject cubes;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +33,7 @@ public class RandomPick : MonoBehaviour
 
 
     }
-    
+    GameObject newObject;
     void makeFoodOrder()
     {
         Transform picker = nodes[Random.Range(0, nodes.Length)];
@@ -42,7 +41,7 @@ public class RandomPick : MonoBehaviour
 
         if (!spawnedObjects.ContainsKey(picker))
         {
-            GameObject newObject = Instantiate(cubes, picker.position,Quaternion.identity);
+             newObject = Instantiate(cubes, picker.position,Quaternion.identity);
             spawnedObjects[picker] = newObject;
         }
         else
@@ -54,6 +53,8 @@ public class RandomPick : MonoBehaviour
 
 
     }
+
+    
 
 
 
