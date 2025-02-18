@@ -7,17 +7,20 @@ public class RandomPick : MonoBehaviour
 {
 
     public Transform[] nodes;
-    List<string> list = new List<string> {"Kabsa" ,"Drink","Saled"} ;
-    public int pickedNumber;
-    private Dictionary<Transform, GameObject> spawnedObjects = new Dictionary<Transform, GameObject>();
-    public GameObject cubes;
 
-    
+   public List<string> list = new List<string> {"Kabsa" ,"Drink","Saled"} ;
+    public Image images;
+
+   public int pickedNumber;
+    private Dictionary<Transform, GameObject> spawnedObjects = new Dictionary<Transform, GameObject>();
+
+    public Material[] mat;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        pickedNumber = Random.Range(0, list.Count);
+       
     }
 
     // Update is called once per frame
@@ -30,18 +33,27 @@ public class RandomPick : MonoBehaviour
         {
             makeFoodOrder();
         }
-
-
     }
-    GameObject newObject;
+
+   
+
+    public GameObject cubes;
+
     void makeFoodOrder()
     {
         Transform picker = nodes[Random.Range(0, nodes.Length)];
+        pickedNumber = Random.Range(0, list.Count);
+
+        print(list[pickedNumber]);
+
+        images = cubes.GetComponentInChildren<Image>();
+        images.material = mat[pickedNumber];
+
 
 
         if (!spawnedObjects.ContainsKey(picker))
         {
-             newObject = Instantiate(cubes, picker.position,Quaternion.identity);
+            GameObject newObject = Instantiate(cubes, picker.position, Quaternion.identity);
             spawnedObjects[picker] = newObject;
         }
         else
@@ -54,31 +66,7 @@ public class RandomPick : MonoBehaviour
 
     }
 
+
+
     
-
-
-
-    GameObject proj;
-    void makeStuff()
-    {
-        
-        Vector3 tag = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        if (Input.GetMouseButtonDown(0)) 
-        {
-
-             proj = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube));
-
-            proj.transform.position = tag;
-            proj.transform.rotation = Quaternion.identity;
-
-            proj.AddComponent<Rigidbody>();
-
-            
-
-        
-        }
-        Destroy(proj, 3);
-
-    }
 }
